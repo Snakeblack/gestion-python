@@ -1,9 +1,18 @@
 # coding=utf-8
+import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 import sqlite3
 
+# -----------------------clases---------------------------------------
+class UI(tk.Frame):
+    def __init__(self, parent=None):
+        tk.Frame.__init__(self, parent)
+        self.parent = parent
+        self.init_ui()
 
+    def init_ui(self):
+        self.parent.title("Gestion de dispositivos")
 # ---------------------funciones---------------------------------------
 
 # noinspection PyBroadException
@@ -104,8 +113,9 @@ def eliminar():
     messagebox.showinfo("BBDD", "Registro eliminado con exito")
 
 
-root = Tk()
-
+root = tk.Tk()
+root.geometry("350x400")
+app = UI(parent=root)
 barra_menu = Menu(root)
 root.config(menu=barra_menu, width=300, height=300)
 
@@ -122,14 +132,14 @@ crud_menu.add_command(label="Leer", command=leer)
 crud_menu.add_command(label="Actualizar", command=actualizar)
 crud_menu.add_command(label="Borrar", command=eliminar)
 
-ayuda_menu = Menu(barra_menu, tearoff=0)
-ayuda_menu.add_command(label="Licencia")
-ayuda_menu.add_command(label="Acerca de")
+#ayuda_menu = Menu(barra_menu, tearoff=0)
+#ayuda_menu.add_command(label="Licencia")
+#ayuda_menu.add_command(label="Acerca de")
 
 barra_menu.add_cascade(label="BBDD", menu=bbdd_menu)
 barra_menu.add_cascade(label="Borrar", menu=borrar_menu)
-barra_menu.add_cascade(label="CRUD", menu=crud_menu)
-barra_menu.add_cascade(label="Ayuda", menu=ayuda_menu)
+barra_menu.add_cascade(label="Opciones", menu=crud_menu)
+#barra_menu.add_cascade(label="Ayuda", menu=ayuda_menu)
 
 # ----------------------comienzo de campos-------------------------------
 
@@ -195,4 +205,4 @@ boton_actualizar.grid(row=1, column=2, sticky="e", padx=10, pady=10)
 boton_borrar = Button(mi_frame2, text="Borrar", command=eliminar)
 boton_borrar.grid(row=1, column=3, sticky="e", padx=10, pady=10)
 
-root.mainloop()
+app.mainloop()
